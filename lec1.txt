@@ -1,0 +1,65 @@
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.8.2 <0.9.0;
+
+// contract lecture01_1{
+
+//     int a;
+//     int b;
+
+//     string message = "hello world";
+
+// }
+
+contract lecture01_2 {
+    int256 public a = 10;
+    bool isbool = false;
+
+    function increment() public returns (int256) {
+        int256 result = ++a;
+        return result;
+    }
+
+    string public addressContract;
+
+    constructor(){
+        addressContract = msg.sender();
+    }
+
+    function decrement() public returns (int256) {
+        return --a;
+    }
+
+    function toggleBool()  public returns(bool){
+
+        if(isbool == false){
+            isbool = true;
+        }else if (isbool == true){
+            isbool = false;
+        }
+        return  isbool;
+    }
+
+    function isEvenorOdd(int num) pure  public returns (string memory){
+        if(num % 2 == 0){
+            return "even";
+        }else if(num % 2 != 0){
+            return "odd";
+        }
+    }
+
+    function joinString(string memory firstString, string memory secondString) pure  public returns (string memory){
+        return string(abi.encodePacked(firstString, secondString));
+    }
+
+    function requirefun(int num) pure public returns(string memory result){
+        require(num % 2 == 0, "not even");
+        return "false";
+
+    }
+
+    function send()view public returns(string memory result){
+        return addressContract;
+
+    }
+}
