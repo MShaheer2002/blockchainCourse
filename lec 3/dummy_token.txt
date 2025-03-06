@@ -1,0 +1,48 @@
+LEC PART 3 
+
+// SPDX-License-Identifier: MIT
+// Compatible with OpenZeppelin Contracts ^5.0.0
+pragma solidity ^0.8.22;
+
+contract dummyToken {
+    uint cap = 200000;
+    mapping(address => uint256) public balanceOf;
+
+    address owner = msg.sender;
+    uint totalSupply;
+
+    function depsoit(uint amount) public{
+        balanceOf[msg.sender] = amount;
+    }
+
+
+
+    function transfer(
+        address sender,
+        address recipent,
+        uint256 amount
+    ) public returns (bool) {
+        require(balanceOf[sender] >= amount);
+        require(recipent != address(0), "Zero address detected");
+        balanceOf[sender] -= amount;
+        balanceOf[recipent] += amount;
+
+        return true;
+    }
+
+    function mintFun(uint amount)public returns (bool) {
+        // if(from == address(0)){
+        //     _totalSupply += amount;
+        // }
+
+        require(msg.sender == owner, "Only Owner can alert");
+        require(amount> 0 , "Amount is less then zero");
+        require(totalSupply <= cap, "Cap reached");
+        balanceOf[msg.sender] += amount;
+        totalSupply += amount;
+
+        return true;
+
+
+    }
+}
